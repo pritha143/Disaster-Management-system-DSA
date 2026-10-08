@@ -1,0 +1,208 @@
+/* Global Reset & Basic Settings */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+  background-color: #0f172a; /* Clean dark navy background */
+  color: #ffffff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Helper Class to Toggle Visibility */
+.hidden {
+  display: none !important;
+}
+
+/* Top Navigation Bar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.2rem 3rem;
+  background-color: #1e293b; /* Slate dark navbar */
+  border-bottom: 1px solid #334155;
+}
+
+/* Stylish Brand Name */
+.brand-name {
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #ffffff;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.brand-name span {
+  color: #e11d48; /* Red dot accent */
+}
+
+/* Login Button in Nav */
+.login-btn {
+  background: transparent;
+  color: #cbd5e1;
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 0.5rem 1.2rem;
+  border: 1px solid #475569;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.login-btn:hover {
+  color: #ffffff;
+  border-color: #94a3b8;
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Main Home View (Outside Navbar) */
+.main-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  text-align: center;
+}
+
+.main-title {
+  font-size: 1.1rem;
+  color: #94a3b8;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Big SOS Button */
+.sos-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background-color: #dc2626; /* Emergency Red */
+  color: #ffffff;
+  font-size: 2.2rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-decoration: none;
+  box-shadow: 0 10px 25px rgba(220, 38, 38, 0.4);
+  transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.sos-btn:hover {
+  background-color: #b91c1c;
+  transform: scale(1.04);
+  box-shadow: 0 12px 30px rgba(220, 38, 38, 0.5);
+}
+
+.sos-btn:active {
+  transform: scale(0.98);
+}
+
+.sos-caption {
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+  color: #64748b;
+}
+
+/* Login View Styling */
+.login-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.login-card {
+  background-color: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.login-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: #ffffff;
+}
+
+.login-subtitle {
+  font-size: 0.875rem;
+  color: #94a3b8;
+  margin-bottom: 1.5rem;
+}
+
+.form-group {
+  margin-bottom: 1.25rem;
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #cbd5e1;
+  margin-bottom: 0.5rem;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background-color: #0f172a;
+  border: 1px solid #334155;
+  border-radius: 6px;
+  color: #ffffff;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.form-group input:focus {
+  border-color: #38bdf8;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #e11d48;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  transition: background-color 0.2s ease;
+}
+
+.submit-btn:hover {
+  background-color: #be123c;
+}
+
+.back-link {
+  display: inline-block;
+  margin-top: 1.25rem;
+  color: #94a3b8;
+  text-decoration: none;
+  font-size: 0.85rem;
+  transition: color 0.2s ease;
+}
+
+.back-link:hover {
+  color: #ffffff;
+}

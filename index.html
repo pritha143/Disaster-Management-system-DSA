@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RESCUE OPS</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <nav class="navbar">
+    <a href="#" class="brand-name" id="navBrand">
+      RESCUE<span>.</span>OPS
+    </a>
+    <button class="login-btn" id="loginToggleBtn">Login</button>
+  </nav>
+
+  <!-- HOME VIEW (Main Page) -->
+  <main class="main-container" id="homeView">
+    <p class="main-title">Emergency Response Center</p>
+    
+    <!-- Big SOS Button -->
+    <a href="#" class="sos-btn" id="sosBtn">SOS</a>
+    
+    <p class="sos-caption">Press in case of an immediate emergency</p>
+  </main>
+
+  <!-- LOGIN VIEW -->
+  <div class="login-container hidden" id="loginView">
+    <div class="login-card">
+      <h2 class="login-title">Officer Login</h2>
+      <p class="login-subtitle">Enter your credentials to access system features</p>
+      
+      <form id="loginForm" onsubmit="event.preventDefault();">
+        <div class="form-group">
+          <label for="username">Officer ID / Username</label>
+          <input type="text" id="username" placeholder="e.g. RESCUE-104" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="••••••••" required>
+        </div>
+        
+        <button type="submit" class="submit-btn">Sign In</button>
+      </form>
+      
+      <a href="#" class="back-link" id="backToHome">← Back to Emergency Screen</a>
+    </div>
+  </div>
+
+  <!-- JavaScript for switching views -->
+  <script>
+    const homeView = document.getElementById('homeView');
+    const loginView = document.getElementById('loginView');
+    const loginToggleBtn = document.getElementById('loginToggleBtn');
+    const backToHome = document.getElementById('backToHome');
+    const navBrand = document.getElementById('navBrand');
+
+    function showLogin() {
+      homeView.classList.add('hidden');
+      loginView.classList.remove('hidden');
+      loginToggleBtn.style.display = 'none';
+    }
+
+    function showHome() {
+      loginView.classList.add('hidden');
+      homeView.classList.remove('hidden');
+      loginToggleBtn.style.display = 'inline-block';
+    }
+
+    loginToggleBtn.addEventListener('click', showLogin);
+    backToHome.addEventListener('click', (e) => {
+      e.preventDefault();
+      showHome();
+    });
+    navBrand.addEventListener('click', (e) => {
+      e.preventDefault();
+      showHome();
+    });
+  </script>
+
+</body>
+</html>
