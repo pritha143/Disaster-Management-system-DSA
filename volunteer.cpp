@@ -27,9 +27,7 @@ private:
 
     void printGoogleMapsLink(double lat, double lon) const
     {
-        std::cout << "Maps Link : https://www.google.com/maps?q=" 
-                  << std::fixed << std::setprecision(6) 
-                  << lat << "," << lon << "\n";
+        std::cout << "Maps Link : https://www.google.com/maps?q="<< std::fixed << std::setprecision(6)<< lat << "," << lon << "\n";
     }
 
 public:
@@ -44,7 +42,7 @@ public:
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         }
 
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Clear input buffer
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
         std::cout << "Enter Volunteer Name: ";
         std::getline(std::cin, v.name);
@@ -111,8 +109,7 @@ public:
         sosQueue.pop();
 
         std::cout << "\n[ALERT ASSIGNED] Responding to SOS ID: " << current.sosId << "\n";
-        std::cout << "Location  : (" << std::fixed << std::setprecision(6) 
-                  << current.latitude << ", " << current.longitude << ")\n";
+        std::cout << "Location  : (" << std::fixed << std::setprecision(6)<< current.latitude << ", " << current.longitude << ")\n";
 
         printGoogleMapsLink(current.latitude, current.longitude);
         std::cout << "SOS successfully marked as resolved and removed from queue.\n";
