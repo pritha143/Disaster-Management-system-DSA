@@ -29,7 +29,6 @@ private:
     vector<Volunteer> volunteers;
     queue<SOS> sosQueue;
 
-    // Save all active SOS records to a file
     void saveActiveSOS()
     {
         ofstream file("active_sos.txt");
@@ -126,7 +125,6 @@ public:
         loadVolunteers();
         loadActiveSOS();
 
-        // Add demonstration SOS records only on first run
         ifstream check("active_sos.txt");
 
         if (!check.good())
@@ -164,7 +162,7 @@ public:
         cout << "Enter Phone: ";
         getline(cin, v.phone);
 
-        // Save the new record permanently
+        
         ofstream file("volunteers.txt", ios::app);
 
         if (!file)
@@ -238,7 +236,7 @@ public:
 
         SOS s = sosQueue.front();
 
-        // Save resolved alert in a separate file
+
         ofstream resolved("resolved_sos.txt", ios::app);
 
         if (!resolved)
@@ -254,7 +252,7 @@ public:
 
         sosQueue.pop();
 
-        // Update the file containing active alerts
+        
         saveActiveSOS();
 
         cout << "\nSOS ID " << s.sosId
