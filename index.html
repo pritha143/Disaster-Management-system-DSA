@@ -8,73 +8,163 @@
 </head>
 <body>
 
+  <!-- NAVBAR -->
   <nav class="navbar">
     <a href="#" class="brand-name" id="navBrand">
       RESCUE<span>.</span>OPS
     </a>
-    <button class="login-btn" id="loginToggleBtn">Login</button>
+    <div class="nav-right" id="navRight">
+      <button class="login-btn" id="loginToggleBtn">Login</button>
+      <div class="user-badge hidden" id="userBadge">
+        <span id="officerBadgeName">Officer</span>
+        <button class="logout-btn" id="logoutBtn">Logout</button>
+      </div>
+    </div>
   </nav>
 
-    <main class="main-container" id="homeView">
+  <!-- HOME VIEW (MAIN SOS) -->
+  <main class="main-container" id="homeView">
     <p class="main-title">Emergency Response Center</p>
-    
     <a href="#" class="sos-btn" id="sosBtn">SOS</a>
-    
     <p class="sos-caption">Press in case of an immediate emergency</p>
   </main>
 
+  <!-- EMERGENCY CATEGORY SELECTION VIEW -->
+  <div class="category-container hidden" id="categoryView">
+    <div class="category-card">
+      <h2 class="category-title">Select Emergency Type</h2>
+      <p class="category-subtitle">Choose the category to dispatch the right response team</p>
+
+      <div class="options-grid">
+        <button class="emergency-option medical" data-type="Medical Emergency">
+          <span class="option-icon">🚑</span>
+          <span class="option-title">Medical</span>
+          <span class="option-desc">Ambulance & Paramedics</span>
+        </button>
+
+        <button class="emergency-option fire" data-type="Fire & Rescue">
+          <span class="option-icon">🔥</span>
+          <span class="option-title">Fire / Hazard</span>
+          <span class="option-desc">Fire Fighters & Rescue</span>
+        </button>
+
+        <button class="emergency-option police" data-type="Crime & Safety">
+          <span class="option-icon">👮</span>
+          <span class="option-title">Crime / Police</span>
+          <span class="option-desc">Law Enforcement</span>
+        </button>
+
+        <button class="emergency-option disaster" data-type="Disaster / General">
+          <span class="option-icon">⚠️</span>
+          <span class="option-title">Disaster / Other</span>
+          <span class="option-desc">Search & Rescue Unit</span>
+        </button>
+      </div>
+
+      <a href="#" class="back-link" id="backToSos">← Cancel and return</a>
+    </div>
+  </div>
+
+  <!-- DISPATCH CONFIRMATION VIEW -->
+  <div class="confirmation-container hidden" id="confirmationView">
+    <div class="confirmation-card">
+      <div class="alert-pulse"></div>
+      <h2 class="confirmation-title">Dispatch Signal Sent</h2>
+      
+      <div class="status-badge" id="selectedCategoryDisplay">Medical Emergency</div>
+
+      <div class="location-box">
+        <p class="location-label">GPS Co-ordinates</p>
+        <p class="location-coords" id="coordsDisplay">Fetching coordinates...</p>
+        <p class="location-status" id="locationStatus">Acquiring high-accuracy position...</p>
+      </div>
+
+      <button class="cancel-alert-btn" id="cancelAlertBtn">Cancel False Alarm</button>
+    </div>
+  </div>
+
+  <!-- LOGIN VIEW -->
   <div class="login-container hidden" id="loginView">
     <div class="login-card">
       <h2 class="login-title">Officer Login</h2>
       <p class="login-subtitle">Enter your credentials to access system features</p>
-      
-      <form id="loginForm" onsubmit="event.preventDefault();">
+
+      <!-- Status Message Area -->
+      <div class="auth-message hidden" id="authMessage"></div>
+
+      <form id="loginForm">
         <div class="form-group">
           <label for="username">Officer ID / Username</label>
-          <input type="text" id="username" placeholder="e.g. RESCUE-104" required>
+          <input type="text" id="username" placeholder="e.g. RESCUE-104" required autocomplete="username">
         </div>
         
         <div class="form-group">
           <label for="password">Password</label>
-          <input type="password" id="password" placeholder="••••••••" required>
+          <input type="password" id="password" placeholder="••••••••" required autocomplete="current-password">
         </div>
         
-        <button type="submit" class="submit-btn">Sign In</button>
+        <button type="submit" class="submit-btn" id="loginSubmitBtn">Sign In</button>
       </form>
       
       <a href="#" class="back-link" id="backToHome">← Back to Emergency Screen</a>
     </div>
   </div>
 
-  <script>
-    const homeView = document.getElementById('homeView');
-    const loginView = document.getElementById('loginView');
-    const loginToggleBtn = document.getElementById('loginToggleBtn');
-    const backToHome = document.getElementById('backToHome');
-    const navBrand = document.getElementById('navBrand');
+  <!-- VOLUNTEER TASKBAR / DASHBOARD VIEW -->
+  <div class="dashboard-container hidden" id="dashboardView">
+    <div class="dashboard-card">
+      <div class="dashboard-header">
+        <div>
+          <h2 class="dashboard-title">Volunteer Command Center</h2>
+          <p class="dashboard-subtitle">Active operations & field dispatch taskbar</p>
+        </div>
+        <span class="duty-badge" id="dutyStatusBadge">● On Duty</span>
+      </div>
 
-    function showLogin() {
-      homeView.classList.add('hidden');
-      loginView.classList.remove('hidden');
-      loginToggleBtn.style.display = 'none';
-    }
+      <!-- Quick Action Controls -->
+      <div class="taskbar">
+        <button class="taskbar-btn active" data-tab="activeTasks">
+          📋 Active Incidents <span class="badge-count" id="taskCount">2</span>
+        </button>
+        <button class="taskbar-btn" data-tab="teamChat">
+          💬 Team Radar
+        </button>
+        <button class="taskbar-btn" data-tab="inventory">
+          📦 Equipment Kit
+        </button>
+      </div>
 
-    function showHome() {
-      loginView.classList.add('hidden');
-      homeView.classList.remove('hidden');
-      loginToggleBtn.style.display = 'inline-block';
-    }
+      <!-- Active Operations List -->
+      <div class="task-list" id="taskList">
+        <div class="task-card urgent">
+          <div class="task-header">
+            <span class="task-id">#INC-4092</span>
+            <span class="task-tag medical">Medical</span>
+          </div>
+          <h4 class="task-title">Paramedic Support Needed</h4>
+          <p class="task-details">Location: Sector 4 - Grid B12 | Distance: 1.2 km</p>
+          <div class="task-actions">
+            <button class="action-btn accept" onclick="acceptTask(this)">Accept Dispatch</button>
+            <button class="action-btn info">View Map</button>
+          </div>
+        </div>
 
-    loginToggleBtn.addEventListener('click', showLogin);
-    backToHome.addEventListener('click', (e) => {
-      e.preventDefault();
-      showHome();
-    });
-    navBrand.addEventListener('click', (e) => {
-      e.preventDefault();
-      showHome();
-    });
-  </script>
+        <div class="task-card">
+          <div class="task-header">
+            <span class="task-id">#INC-4088</span>
+            <span class="task-tag disaster">Disaster Relief</span>
+          </div>
+          <h4 class="task-title">Flooding Evacuation Assistance</h4>
+          <p class="task-details">Location: Riverfront Ave | Distance: 3.5 km</p>
+          <div class="task-actions">
+            <button class="action-btn accept" onclick="acceptTask(this)">Accept Dispatch</button>
+            <button class="action-btn info">View Map</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
+  <script src="script.js"></script>
 </body>
 </html>
