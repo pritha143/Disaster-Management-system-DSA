@@ -17,7 +17,7 @@ body {
   display: none !important;
 }
 
-/* NAVBAR */
+
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -89,7 +89,6 @@ body {
   color: #ffffff;
 }
 
-/* MAIN CONTAINERS */
 .main-container,
 .category-container,
 .confirmation-container,
@@ -185,7 +184,6 @@ body {
   margin-bottom: 1.5rem;
 }
 
-/* EMERGENCY OPTIONS GRID */
 .options-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -232,7 +230,6 @@ body {
 .emergency-option.police:hover { border-color: #3b82f6; background-color: rgba(59, 130, 246, 0.1); }
 .emergency-option.disaster:hover { border-color: #eab308; background-color: rgba(234, 179, 8, 0.1); }
 
-/* CONFIRMATION DISPLAY */
 .status-badge {
   display: inline-block;
   background-color: #e11d48;
@@ -290,7 +287,6 @@ body {
   color: #ffffff;
 }
 
-/* LOGIN FORM & AUTH MESSAGES */
 .form-group {
   margin-bottom: 1.25rem;
   text-align: left;
@@ -371,7 +367,6 @@ body {
   color: #ffffff;
 }
 
-/* VOLUNTEER TASKBAR & DASHBOARD */
 .dashboard-header {
   display: flex;
   justify-content: space-between;
@@ -500,3 +495,100 @@ body {
 .action-btn.accept { background-color: #22c55e; color: #000; }
 .action-btn.info { background-color: #334155; color: #fff; }
 .action-btn:hover { opacity: 0.9; }
+
+.auth-tabs {
+  display: flex;
+  gap: 0.5rem;
+  background-color: #0f172a;
+  padding: 0.35rem;
+  border-radius: 8px;
+  border: 1px solid #334155;
+  margin-bottom: 1.25rem;
+}
+
+.auth-tab {
+  flex: 1;
+  padding: 0.55rem;
+  background: transparent;
+  color: #94a3b8;
+  border: none;
+  border-radius: 6px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.auth-tab.active {
+  background-color: #1e293b;
+  color: #38bdf8;
+}
+
+.coords-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.gps-btn {
+  width: 100%;
+  padding: 0.6rem;
+  margin-bottom: 0.5rem;
+  background-color: #0f172a;
+  color: #38bdf8;
+  border: 1px solid #334155;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.gps-btn:hover {
+  border-color: #38bdf8;
+}
+
+.next-queue-panel {
+  background-color: #0f172a;
+  border: 1px solid #334155;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.85rem;
+}
+
+.panel-header h3,
+.section-heading {
+  font-size: 1rem;
+  color: #ffffff;
+  margin-bottom: 0.2rem;
+}
+
+.panel-sub {
+  font-size: 0.78rem;
+  color: #94a3b8;
+}
+
+.section-heading {
+  margin-bottom: 0.85rem;
+}
+
+.tab-section {
+  margin-top: 0.5rem;
+}
+
+.empty-msg {
+  font-size: 0.85rem;
+  color: #94a3b8;
+  padding: 0.6rem 0;
+}
+
+a.action-btn {
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}

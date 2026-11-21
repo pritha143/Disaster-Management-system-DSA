@@ -8,7 +8,6 @@
 </head>
 <body>
 
-  <!-- NAVBAR -->
   <nav class="navbar">
     <a href="#" class="brand-name" id="navBrand">
       RESCUE<span>.</span>OPS
@@ -16,20 +15,18 @@
     <div class="nav-right" id="navRight">
       <button class="login-btn" id="loginToggleBtn">Login</button>
       <div class="user-badge hidden" id="userBadge">
-        <span id="officerBadgeName">Officer</span>
+        <span id="officerBadgeName">Volunteer</span>
         <button class="logout-btn" id="logoutBtn">Logout</button>
       </div>
     </div>
   </nav>
 
-  <!-- HOME VIEW (MAIN SOS) -->
   <main class="main-container" id="homeView">
     <p class="main-title">Emergency Response Center</p>
     <a href="#" class="sos-btn" id="sosBtn">SOS</a>
     <p class="sos-caption">Press in case of an immediate emergency</p>
   </main>
 
-  <!-- EMERGENCY CATEGORY SELECTION VIEW -->
   <div class="category-container hidden" id="categoryView">
     <div class="category-card">
       <h2 class="category-title">Select Emergency Type</h2>
@@ -65,12 +62,11 @@
     </div>
   </div>
 
-  <!-- DISPATCH CONFIRMATION VIEW -->
   <div class="confirmation-container hidden" id="confirmationView">
     <div class="confirmation-card">
       <div class="alert-pulse"></div>
       <h2 class="confirmation-title">Dispatch Signal Sent</h2>
-      
+
       <div class="status-badge" id="selectedCategoryDisplay">Medical Emergency</div>
 
       <div class="location-box">
@@ -79,88 +75,95 @@
         <p class="location-status" id="locationStatus">Acquiring high-accuracy position...</p>
       </div>
 
-      <button class="cancel-alert-btn" id="cancelAlertBtn">Cancel False Alarm</button>
+      <button type="button" class="cancel-alert-btn" id="cancelAlertBtn">Cancel Emergency Alert</button>
     </div>
   </div>
 
-  <!-- LOGIN VIEW -->
   <div class="login-container hidden" id="loginView">
     <div class="login-card">
-      <h2 class="login-title">Officer Login</h2>
-      <p class="login-subtitle">Enter your credentials to access system features</p>
+      <h2 class="login-title" id="authHeading">Volunteer Login</h2>
+      <p class="login-subtitle" id="authSubtitle">Sign in with your pre-registered responder account</p>
 
-      <!-- Status Message Area -->
+      
       <div class="auth-message hidden" id="authMessage"></div>
 
+      
       <form id="loginForm">
         <div class="form-group">
-          <label for="username">Officer ID / Username</label>
-          <input type="text" id="username" placeholder="e.g. RESCUE-104" required autocomplete="username">
+          <label for="username">Volunteer Name</label>
+          <input type="text" id="username" placeholder="e.g. sam" required autocomplete="username">
         </div>
-        
+
         <div class="form-group">
           <label for="password">Password</label>
           <input type="password" id="password" placeholder="••••••••" required autocomplete="current-password">
         </div>
-        
+
+        <div class="coords-row">
+          <div class="form-group">
+            <label for="loginLat">Latitude (Optional)</label>
+            <input type="number" step="any" id="loginLat" placeholder="Auto / Profile">
+          </div>
+          <div class="form-group">
+            <label for="loginLon">Longitude (Optional)</label>
+            <input type="number" step="any" id="loginLon" placeholder="Auto / Profile">
+          </div>
+        </div>
+
+        <button type="button" class="gps-btn" id="fetchLoginGpsBtn">📍 Fetch Current GPS Coordinates</button>
         <button type="submit" class="submit-btn" id="loginSubmitBtn">Sign In</button>
       </form>
-      
+
       <a href="#" class="back-link" id="backToHome">← Back to Emergency Screen</a>
     </div>
   </div>
 
-  <!-- VOLUNTEER TASKBAR / DASHBOARD VIEW -->
   <div class="dashboard-container hidden" id="dashboardView">
     <div class="dashboard-card">
       <div class="dashboard-header">
         <div>
           <h2 class="dashboard-title">Volunteer Command Center</h2>
-          <p class="dashboard-subtitle">Active operations & field dispatch taskbar</p>
+          <p class="dashboard-subtitle" id="volunteerMeta">Logged in as responder</p>
         </div>
         <span class="duty-badge" id="dutyStatusBadge">● On Duty</span>
       </div>
 
-      <!-- Quick Action Controls -->
       <div class="taskbar">
-        <button class="taskbar-btn active" data-tab="activeTasks">
-          📋 Active Incidents <span class="badge-count" id="taskCount">2</span>
+        <button type="button" class="taskbar-btn active" data-tab="viewSos" id="tabViewSos">
+          🚨 View SOS <span class="badge-count" id="taskCount">0</span>
         </button>
-        <button class="taskbar-btn" data-tab="teamChat">
-          💬 Team Radar
+        <button type="button" class="taskbar-btn" data-tab="nextPriority" id="tabNextPriority">
+          ⚡ Next SOS Queue
         </button>
-        <button class="taskbar-btn" data-tab="inventory">
-          📦 Equipment Kit
+        <button type="button" class="taskbar-btn" data-tab="volunteers" id="tabVolunteers">
+          👥 Volunteers
         </button>
       </div>
 
-      <!-- Active Operations List -->
-      <div class="task-list" id="taskList">
-        <div class="task-card urgent">
-          <div class="task-header">
-            <span class="task-id">#INC-4092</span>
-            <span class="task-tag medical">Medical</span>
+      <div class="next-queue-panel" id="nextQueuePanel">
+        <div class="panel-header">
+          <div>
+            <h3>Next Priority SOS (Shortest Distance)</h3>
+            <p class="panel-sub">Ordered by priority first, then SOS ID from C++ priority queue</p>
           </div>
-          <h4 class="task-title">Paramedic Support Needed</h4>
-          <p class="task-details">Location: Sector 4 - Grid B12 | Distance: 1.2 km</p>
-          <div class="task-actions">
-            <button class="action-btn accept" onclick="acceptTask(this)">Accept Dispatch</button>
-            <button class="action-btn info">View Map</button>
-          </div>
+          <button type="button" class="action-btn info" id="refreshDashboardBtn">↻ Refresh</button>
         </div>
+        <div id="nextQueueList" class="task-list"></div>
+      </div>
 
-        <div class="task-card">
-          <div class="task-header">
-            <span class="task-id">#INC-4088</span>
-            <span class="task-tag disaster">Disaster Relief</span>
-          </div>
-          <h4 class="task-title">Flooding Evacuation Assistance</h4>
-          <p class="task-details">Location: Riverfront Ave | Distance: 3.5 km</p>
-          <div class="task-actions">
-            <button class="action-btn accept" onclick="acceptTask(this)">Accept Dispatch</button>
-            <button class="action-btn info">View Map</button>
-          </div>
-        </div>
+      <div class="tab-section" id="sectionViewSos">
+        <h3 class="section-heading">All Active SOS Alerts</h3>
+        <div class="task-list" id="taskList"></div>
+      </div>
+
+      <div class="tab-section hidden" id="sectionNextPriority">
+        <h3 class="section-heading">Your Shortest-Distance Priority Queue</h3>
+        <div class="task-list" id="priorityQueueFullList"></div>
+      </div>
+
+      <div class="tab-section hidden" id="sectionVolunteers">
+        <h3 class="section-heading">Registered Volunteers</h3>
+        <div class="task-list" id="volunteersList"></div>
       </div>
     </div>
   </div>
