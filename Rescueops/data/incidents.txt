@@ -1,0 +1,4 @@
+1|Test Victim|Flood|5
+1|Search Test|Earthquake|4
+2|Flood Victim|Flood|2
+3|Critical Rescue|Earthquake|5

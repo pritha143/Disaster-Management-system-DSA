@@ -1,0 +1,12 @@
+1|Test Victim|Flood|5|||0|0|Resolved
+2|Flood Victim|Flood|2|||0|0|Resolved
+3|Critical Rescue|Earthquake|5|||0|0|Resolved
+4|pritha|Medical Emergency|4|9242059194||30.2651|77.9978|Resolved
+5|pi|Fire & Rescue|5|||30.2651|77.9978|Resolved
+6|yajat|Crime & Safety|4|||30.2651|77.9978|Resolved
+7|riti|Disaster / General|3|||30.2651|77.9978|Resolved
+8|pti|Medical Emergency|4|||30.2651|77.9978|Resolved
+9|risha|Crime & Safety|4|||30.2651|77.9978|Resolved
+10|ff|Medical Emergency|4|||30.2651|77.9978|Resolved
+11|rt|Medical Emergency|4|||30.2651|77.9978|Resolved
+12|yyy|Medical Emergency|4|||30.2651|77.9978|Arrived
