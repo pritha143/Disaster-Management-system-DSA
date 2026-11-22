@@ -1,80 +1,152 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RESCUE OPS</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>RESCUE.OPS | SOS Emergency Module</title>
+
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-  <nav class="navbar">
-    <a href="#" class="brand-name" id="navBrand">
-      RESCUE<span>.</span>OPS
-    </a>
-    <button class="login-btn" id="loginToggleBtn">Login</button>
-  </nav>
-
-    <main class="main-container" id="homeView">
-    <p class="main-title">Emergency Response Center</p>
-    
-    <a href="#" class="sos-btn" id="sosBtn">SOS</a>
-    
-    <p class="sos-caption">Press in case of an immediate emergency</p>
-  </main>
-
-  <div class="login-container hidden" id="loginView">
-    <div class="login-card">
-      <h2 class="login-title">Officer Login</h2>
-      <p class="login-subtitle">Enter your credentials to access system features</p>
-      
-      <form id="loginForm" onsubmit="event.preventDefault();">
-        <div class="form-group">
-          <label for="username">Officer ID / Username</label>
-          <input type="text" id="username" placeholder="e.g. RESCUE-104" required>
+    <header>
+        <div class="container">
+            <h1>RESCUE<span>.OPS</span></h1>
+            <p>Disaster Management and Emergency Response</p>
         </div>
-        
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input type="password" id="password" placeholder="••••••••" required>
-        </div>
-        
-        <button type="submit" class="submit-btn">Sign In</button>
-      </form>
-      
-      <a href="#" class="back-link" id="backToHome">← Back to Emergency Screen</a>
-    </div>
-  </div>
+    </header>
 
-  <script>
-    const homeView = document.getElementById('homeView');
-    const loginView = document.getElementById('loginView');
-    const loginToggleBtn = document.getElementById('loginToggleBtn');
-    const backToHome = document.getElementById('backToHome');
-    const navBrand = document.getElementById('navBrand');
+    <main class="container">
 
-    function showLogin() {
-      homeView.classList.add('hidden');
-      loginView.classList.remove('hidden');
-      loginToggleBtn.style.display = 'none';
-    }
+        <section class="hero">
+            <h2>SOS Emergency Request</h2>
+            <p>
+                Request emergency assistance by providing your details
+                and current location.
+            </p>
+        </section>
 
-    function showHome() {
-      loginView.classList.add('hidden');
-      homeView.classList.remove('hidden');
-      loginToggleBtn.style.display = 'inline-block';
-    }
+        <section class="emergency-card">
 
-    loginToggleBtn.addEventListener('click', showLogin);
-    backToHome.addEventListener('click', (e) => {
-      e.preventDefault();
-      showHome();
-    });
-    navBrand.addEventListener('click', (e) => {
-      e.preventDefault();
-      showHome();
-    });
-  </script>
+            <h2>Emergency Details</h2>
+
+            <form id="sosForm">
+
+                <div class="form-group">
+                    <label for="victimName">Full Name</label>
+                    <input
+                        type="text"
+                        id="victimName"
+                        name="victimName"
+                        placeholder="Enter your full name"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input
+                        type="tel"
+                        id="phone"
+                        name="phone"
+                        placeholder="Enter your phone number"
+                        pattern="[0-9]{10}"
+                        maxlength="10"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="location">Current Location</label>
+                    <input
+                        type="text"
+                        id="location"
+                        name="location"
+                        placeholder="Enter your location"
+                        required
+                    >
+                </div>
+
+                <input type="hidden" id="latitude" name="latitude">
+                <input type="hidden" id="longitude" name="longitude">
+
+                <button type="button" id="getLocation">
+                    Get My Current Location
+                </button>
+
+                <p id="locationStatus" role="status">
+                    You can enter your location manually or use GPS.
+                </p>
+
+                <div class="form-group">
+                    <label for="details">Emergency Description</label>
+                    <textarea
+                        id="details"
+                        name="details"
+                        rows="4"
+                        placeholder="Describe your emergency..."
+                        required
+                    ></textarea>
+                </div>
+
+                <button type="submit" id="submitSOS">
+                    SEND SOS REQUEST
+                </button>
+
+            </form>
+
+            <div id="confirmation" hidden role="status" aria-live="polite">
+                <h3>Request Status</h3>
+                <p id="confirmationText"></p>
+                <a
+                    id="mapLink"
+                    href="#"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    hidden
+                >
+                    View Location on Map
+                </a>
+            </div>
+
+        </section>
+
+        <section class="history-section">
+            <h2>Recent Emergency Requests</h2>
+
+            <p>
+                Requests displayed here are demo records for this session.
+            </p>
+
+            <p>
+                Total Requests: <span id="requestCount">0</span>
+            </p>
+
+            <div id="historyList">
+                <p>No emergency requests yet.</p>
+            </div>
+        </section>
+
+        <section class="notice">
+            <h3>Important Notice</h3>
+            <p>
+                This is a student project demonstration. Submitting this
+                form does not contact emergency services or send a real
+                rescue team. In a real emergency in India, call 112.
+            </p>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 RESCUE.OPS | Disaster Management System</p>
+    </footer>
+
+    <script src="script.js"></script>
 
 </body>
 </html>
+```
