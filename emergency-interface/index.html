@@ -1,0 +1,208 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RESCUE OPS | Emergency Response</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+    <nav class="navbar">
+        <a href="#" class="brand-name" id="navBrand">
+            RESCUE<span>.</span>OPS
+        </a>
+
+        <div class="nav-right">
+            <span class="system-status">
+                <span class="status-dot"></span>
+                System Interface
+            </span>
+            <button class="login-btn" id="loginToggleBtn">
+                Officer Login
+            </button>
+        </div>
+    </nav>
+
+    <main class="main-container" id="homeView">
+        <section class="welcome-section">
+            <p class="eyebrow">DISASTER MANAGEMENT SYSTEM</p>
+            <h1>Emergency Response Center</h1>
+            <p class="description">
+                Quick access to emergency assistance and response services.
+            </p>
+        </section>
+
+        <section class="dashboard-grid">
+            <div class="emergency-card">
+                <div class="card-heading">
+                    <span class="icon-box">!</span>
+                    <span class="small-label">EMERGENCY ASSISTANCE</span>
+                </div>
+
+                <h2>Need immediate help?</h2>
+                <p class="muted">
+                    Confirm an emergency request to begin the demo SOS process.
+                </p>
+
+                <label for="emergencyType">Emergency category</label>
+                <select id="emergencyType">
+                    <option value="Medical Emergency">Medical Emergency</option>
+                    <option value="Fire">Fire</option>
+                    <option value="Accident">Road Accident</option>
+                    <option value="Natural Disaster">Natural Disaster</option>
+                    <option value="Other">Other Emergency</option>
+                </select>
+
+                <button class="sos-btn" id="sosBtn" type="button">
+                    <span class="sos-icon">!</span>
+                    <span>SOS</span>
+                </button>
+
+                <p class="sos-caption">
+                    Use only when an emergency requires immediate assistance.
+                </p>
+
+                <div class="notice">
+                    <span>i</span>
+                    This interface demo does not automatically contact
+                    emergency services.
+                </div>
+            </div>
+
+            <div class="info-column">
+                <div class="info-card">
+                    <div class="info-icon red-icon">!</div>
+                    <div>
+                        <p class="small-label">EMERGENCY SUPPORT</p>
+                        <h3>Request Assistance</h3>
+                        <p class="muted">
+                            Select an emergency category and initiate the
+                            demonstration workflow.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-icon blue-icon">⌖</div>
+                    <div>
+                        <p class="small-label">LOCATION SERVICES</p>
+                        <h3>Location Sharing</h3>
+                        <p class="muted" id="locationStatus">
+                            Location has not been requested.
+                        </p>
+                        <button class="text-btn" id="locationBtn" type="button">
+                            Share my location
+                        </button>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-icon green-icon">✓</div>
+                    <div>
+                        <p class="small-label">RESPONSE SYSTEM</p>
+                        <h3>Volunteer Network</h3>
+                        <p class="muted">
+                            Volunteer registration and SOS queue management
+                            are available in the C/C++ module.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="bottom-panel">
+            <div>
+                <p class="small-label">CURRENT INTERFACE TIME</p>
+                <h3 id="clock">--:--:--</h3>
+            </div>
+            <div class="panel-divider"></div>
+            <div>
+                <p class="small-label">APPLICATION STATUS</p>
+                <h3><span class="status-dot"></span> Ready</h3>
+            </div>
+            <div class="panel-divider"></div>
+            <div>
+                <p class="small-label">MODULE</p>
+                <h3>Rescue Operations</h3>
+            </div>
+        </section>
+
+        <p class="footer-note">
+            RESCUE OPS · Disaster Management System · Frontend Demonstration
+        </p>
+    </main>
+
+    <main class="login-container hidden" id="loginView">
+        <section class="login-card">
+            <p class="eyebrow">AUTHORIZED ACCESS</p>
+            <h1>Officer Login</h1>
+            <p class="muted login-description">
+                Enter your officer details to preview the login interface.
+            </p>
+
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username">Officer ID / Username</label>
+                    <input
+                        type="text"
+                        id="username"
+                        placeholder="e.g. RESCUE-104"
+                        autocomplete="username"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Enter password"
+                        autocomplete="current-password"
+                        required
+                    >
+                </div>
+
+                <button type="submit" class="submit-btn">
+                    Sign In
+                </button>
+
+                <p class="form-message" id="loginMessage" role="status"></p>
+            </form>
+
+            <button class="back-link" id="backToHome" type="button">
+                &larr; Back to Emergency Screen
+            </button>
+
+            <p class="footer-note">
+                Demo only. Real authentication is not configured.
+            </p>
+        </section>
+    </main>
+
+    <dialog id="sosDialog" class="sos-dialog">
+        <div class="dialog-content">
+            <div class="dialog-symbol">!</div>
+            <p class="eyebrow">EMERGENCY CONFIRMATION</p>
+            <h2>Confirm SOS Request</h2>
+            <p class="muted" id="confirmationText">
+                Do you want to start the SOS demonstration?
+            </p>
+
+            <div class="dialog-actions">
+                <button class="cancel-btn" id="cancelSOS" type="button">
+                    Cancel
+                </button>
+                <button class="confirm-btn" id="confirmSOS" type="button">
+                    Confirm SOS
+                </button>
+            </div>
+        </div>
+    </dialog>
+
+    <div class="toast hidden" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

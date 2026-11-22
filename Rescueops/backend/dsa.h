@@ -1,0 +1,316 @@
+
+#ifndef DSA_H
+#define DSA_H
+
+#include <iostream>
+#include <vector>
+#include <queue>
+#include <string>
+#include <algorithm>
+
+using namespace std;
+
+// INCIDENT STRUCTURE
+struct Incident {
+    int id = 0;
+    string name;
+    string phone;
+    string type;
+    string description;
+    int priority = 1;
+    double latitude = 0.0;
+    double longitude = 0.0;
+    string status = "Pending";
+};
+
+// =================================
+// 1. LINKED LIST - VICTIM RECORDS
+// =================================
+
+struct Node {
+    Incident data;
+    Node* next;
+
+    Node(Incident x) {
+        data = x;
+        next = nullptr;
+    }
+};
+
+class VictimList {
+private:
+    Node* head;
+
+public:
+    VictimList() {
+        head = nullptr;
+    }
+
+    void insert(Incident x) {
+        Node* newNode = new Node(x);
+
+        if (head == nullptr) {
+            head = newNode;
+        }
+        else {
+            Node* temp = head;
+
+            while (temp->next != nullptr) {
+                temp = temp->next;
+            }
+
+            temp->next = newNode;
+        }
+
+        cout << "Victim record added!" << endl;
+    }
+
+    void display() {
+        Node* temp = head;
+
+        if (temp == nullptr) {
+            cout << "No victim records!" << endl;
+            return;
+        }
+
+        while (temp != nullptr) {
+            cout << "ID: " << temp->data.id
+                 << " | Name: " << temp->data.name
+                 << " | Type: " << temp->data.type
+                 << " | Priority: " << temp->data.priority
+                 << endl;
+
+            temp = temp->next;
+        }
+    }
+
+    bool search(int id) {
+        Node* temp = head;
+
+        while (temp != nullptr) {
+            if (temp->data.id == id) {
+                cout << "Victim found: "
+                     << temp->data.name << endl;
+                return true;
+            }
+
+            temp = temp->next;
+        }
+
+        cout << "Victim not found!" << endl;
+        return false;
+    }
+
+    ~VictimList() {
+        while (head != nullptr) {
+            Node* temp = head;
+            head = head->next;
+            delete temp;
+        }
+    }
+};
+
+// =================================
+// 2. QUEUE - NORMAL RESCUE REQUESTS
+// =================================
+
+class RescueQueue {
+private:
+    queue<Incident> q;
+
+public:
+    void add(Incident x) {
+        q.push(x);
+        cout << "Request added to queue!" << endl;
+    }
+
+    string process() {
+        if (q.empty()) {
+            cout << "Queue is empty!" << endl;
+            return "";
+        }
+
+        Incident x = q.front();
+
+        cout << "Processing request: "
+             << x.name << endl;
+
+        q.pop();
+        return x.name;
+    }
+};
+
+// =================================
+// 3. PRIORITY QUEUE - EMERGENCIES
+// =================================
+
+struct ComparePriority {
+    bool operator()(Incident a, Incident b) {
+        return a.priority < b.priority;
+    }
+};
+
+class EmergencyQueue {
+private:
+    priority_queue<Incident,
+                   vector<Incident>,
+                   ComparePriority> pq;
+
+public:
+    void add(Incident x) {
+        pq.push(x);
+        cout << "Emergency added!" << endl;
+    }
+
+    string process() {
+        if (pq.empty()) {
+            cout << "No emergencies!" << endl;
+            return "";
+        }
+
+        Incident x = pq.top();
+
+        cout << "Highest priority emergency: "
+             << x.name << endl;
+
+        pq.pop();
+        return x.name;
+    }
+};
+
+// =================================
+// 4. GRAPH - DISASTER LOCATIONS
+// =================================
+
+class DisasterGraph {
+private:
+    static const int N = 6;
+    vector<int> graph[N];
+
+public:
+    DisasterGraph() {
+        addRoad(0, 1);
+        addRoad(0, 2);
+        addRoad(1, 3);
+        addRoad(2, 3);
+        addRoad(2, 4);
+        addRoad(3, 5);
+        addRoad(4, 5);
+    }
+
+    void addRoad(int u, int v) {
+        if (u < 0 || u >= N || v < 0 || v >= N)
+            return;
+
+        graph[u].push_back(v);
+        graph[v].push_back(u);
+    }
+
+    // BFS - SHORTEST PATH IN UNWEIGHTED GRAPH
+    void BFS(int start, int destination) {
+        if (start < 0 || start >= N ||
+            destination < 0 || destination >= N) {
+            cout << "Invalid location!" << endl;
+            return;
+        }
+
+        bool visited[N] = {false};
+        int parent[N];
+
+        fill(parent, parent + N, -1);
+
+        queue<int> q;
+
+        visited[start] = true;
+        q.push(start);
+
+        while (!q.empty()) {
+            int node = q.front();
+            q.pop();
+
+            for (int v : graph[node]) {
+                if (!visited[v]) {
+                    visited[v] = true;
+                    parent[v] = node;
+                    q.push(v);
+                }
+            }
+        }
+
+        if (!visited[destination]) {
+            cout << "No route available!" << endl;
+            return;
+        }
+
+        vector<int> path;
+
+        for (int v = destination; v != -1; v = parent[v]) {
+            path.push_back(v);
+        }
+
+        reverse(path.begin(), path.end());
+
+        cout << "Shortest route: ";
+
+        for (int v : path) {
+            cout << v << " ";
+        }
+
+        cout << endl;
+    }
+
+    // DFS - EXPLORE AFFECTED REGIONS
+    void DFSHelper(int node, bool visited[]) {
+        visited[node] = true;
+
+        cout << node << " ";
+
+        for (int v : graph[node]) {
+            if (!visited[v]) {
+                DFSHelper(v, visited);
+            }
+        }
+    }
+
+    void DFS(int start) {
+        if (start < 0 || start >= N) {
+            cout << "Invalid location!" << endl;
+            return;
+        }
+
+        bool visited[N] = {false};
+
+        cout << "Affected regions: ";
+        DFSHelper(start, visited);
+
+        cout << endl;
+    }
+};
+
+// =================================
+// 5. SEARCHING - INCIDENT ID
+// =================================
+
+int searchIncident(vector<Incident> records, int id) {
+    for (int i = 0; i < (int)records.size(); i++) {
+        if (records[i].id == id) {
+            return i;
+        }
+    }
+
+    return -1;
+}
+
+// =================================
+// 6. SORTING - EMERGENCY PRIORITY
+// =================================
+
+void sortEmergencies(vector<Incident>& records) {
+    sort(records.begin(), records.end(),
+         [](Incident a, Incident b) {
+             return a.priority > b.priority;
+         });
+}
+
+#endif
+

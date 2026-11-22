@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RESCUE OPS</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="#" class="brand-name" id="navBrand">
+      RESCUE<span>.</span>OPS
+    </a>
+    <div class="nav-right" id="navRight">
+      <button class="login-btn" id="loginToggleBtn">Login</button>
+      <div class="user-badge hidden" id="userBadge">
+        <span id="officerBadgeName">Volunteer</span>
+        <button class="logout-btn" id="logoutBtn">Logout</button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="main-container" id="homeView">
+    <p class="main-title">Emergency Response Center</p>
+    <a href="#" class="sos-btn" id="sosBtn">SOS</a>
+    <p class="sos-caption">Press in case of an immediate emergency</p>
+  </main>
+
+  <div class="category-container hidden" id="categoryView">
+    <div class="category-card">
+      <h2 class="category-title">Select Emergency Type</h2>
+      <p class="category-subtitle">Choose the category to dispatch the right response team</p>
+
+      <div class="options-grid">
+        <button class="emergency-option medical" data-type="Medical Emergency">
+          <span class="option-icon">🚑</span>
+          <span class="option-title">Medical</span>
+          <span class="option-desc">Ambulance & Paramedics</span>
+        </button>
+
+        <button class="emergency-option fire" data-type="Fire & Rescue">
+          <span class="option-icon">🔥</span>
+          <span class="option-title">Fire / Hazard</span>
+          <span class="option-desc">Fire Fighters & Rescue</span>
+        </button>
+
+        <button class="emergency-option police" data-type="Crime & Safety">
+          <span class="option-icon">👮</span>
+          <span class="option-title">Crime / Police</span>
+          <span class="option-desc">Law Enforcement</span>
+        </button>
+
+        <button class="emergency-option disaster" data-type="Disaster / General">
+          <span class="option-icon">⚠️</span>
+          <span class="option-title">Disaster / Other</span>
+          <span class="option-desc">Search & Rescue Unit</span>
+        </button>
+      </div>
+
+      <a href="#" class="back-link" id="backToSos">← Cancel and return</a>
+    </div>
+  </div>
+
+  <div class="confirmation-container hidden" id="confirmationView">
+    <div class="confirmation-card">
+      <div class="alert-pulse"></div>
+      <h2 class="confirmation-title">Dispatch Signal Sent</h2>
+
+      <div class="status-badge" id="selectedCategoryDisplay">Medical Emergency</div>
+
+      <div class="location-box">
+        <p class="location-label">GPS Co-ordinates</p>
+        <p class="location-coords" id="coordsDisplay">Fetching coordinates...</p>
+        <p class="location-status" id="locationStatus">Acquiring high-accuracy position...</p>
+      </div>
+
+      <button type="button" class="cancel-alert-btn" id="cancelAlertBtn">Cancel Emergency Alert</button>
+    </div>
+  </div>
+
+  <div class="login-container hidden" id="loginView">
+    <div class="login-card">
+      <h2 class="login-title" id="authHeading">Volunteer Login</h2>
+      <p class="login-subtitle" id="authSubtitle">Sign in with your pre-registered responder account</p>
+
+      
+      <div class="auth-message hidden" id="authMessage"></div>
+
+      
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="username">Volunteer Name</label>
+          <input type="text" id="username" placeholder="e.g. sam" required autocomplete="username">
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="••••••••" required autocomplete="current-password">
+        </div>
+
+        <div class="coords-row">
+          <div class="form-group">
+            <label for="loginLat">Latitude (Optional)</label>
+            <input type="number" step="any" id="loginLat" placeholder="Auto / Profile">
+          </div>
+          <div class="form-group">
+            <label for="loginLon">Longitude (Optional)</label>
+            <input type="number" step="any" id="loginLon" placeholder="Auto / Profile">
+          </div>
+        </div>
+
+        <button type="button" class="gps-btn" id="fetchLoginGpsBtn">📍 Fetch Current GPS Coordinates</button>
+        <button type="submit" class="submit-btn" id="loginSubmitBtn">Sign In</button>
+      </form>
+
+      <a href="#" class="back-link" id="backToHome">← Back to Emergency Screen</a>
+    </div>
+  </div>
+
+  <div class="dashboard-container hidden" id="dashboardView">
+    <div class="dashboard-card">
+      <div class="dashboard-header">
+        <div>
+          <h2 class="dashboard-title">Volunteer Command Center</h2>
+          <p class="dashboard-subtitle" id="volunteerMeta">Logged in as responder</p>
+        </div>
+        <span class="duty-badge" id="dutyStatusBadge">● On Duty</span>
+      </div>
+
+      <div class="taskbar">
+        <button type="button" class="taskbar-btn active" data-tab="viewSos" id="tabViewSos">
+          🚨 View SOS <span class="badge-count" id="taskCount">0</span>
+        </button>
+        <button type="button" class="taskbar-btn" data-tab="nextPriority" id="tabNextPriority">
+          ⚡ Next SOS Queue
+        </button>
+        <button type="button" class="taskbar-btn" data-tab="volunteers" id="tabVolunteers">
+          👥 Volunteers
+        </button>
+      </div>
+
+      <div class="next-queue-panel" id="nextQueuePanel">
+        <div class="panel-header">
+          <div>
+            <h3>Next Priority SOS (Shortest Distance)</h3>
+            <p class="panel-sub">Ordered by priority first, then SOS ID from C++ priority queue</p>
+          </div>
+          <button type="button" class="action-btn info" id="refreshDashboardBtn">↻ Refresh</button>
+        </div>
+        <div id="nextQueueList" class="task-list"></div>
+      </div>
+
+      <div class="tab-section" id="sectionViewSos">
+        <h3 class="section-heading">All Active SOS Alerts</h3>
+        <div class="task-list" id="taskList"></div>
+      </div>
+
+      <div class="tab-section hidden" id="sectionNextPriority">
+        <h3 class="section-heading">Your Shortest-Distance Priority Queue</h3>
+        <div class="task-list" id="priorityQueueFullList"></div>
+      </div>
+
+      <div class="tab-section hidden" id="sectionVolunteers">
+        <h3 class="section-heading">Registered Volunteers</h3>
+        <div class="task-list" id="volunteersList"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
